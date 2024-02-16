@@ -33,5 +33,33 @@ public class Vending {
             System.out.println("Invalid choice, please try again:");
             choice = scanner.nextInt();
         }
+
+          // Adjust choice to match array indexing
+          Snack selectedSnack = snacks[choice - 1];
+          System.out.printf("You have selected %s. Please insert $%.2f, accepting only $1 bills.\n", selectedSnack.getName(), selectedSnack.getPrice());
+  
+          double totalInserted = 0;
+          while (totalInserted < selectedSnack.getPrice()) {
+              System.out.println("Insert $1 bill (Press any key and enter to insert $1 bill):");
+              scanner.next(); // Simulate inserting money
+              totalInserted += 1; // Assume each insertion is a $1 bill
+              System.out.printf("Total inserted: $%.2f\n", totalInserted);
+          }
+          
+          double change = totalInserted - selectedSnack.getPrice();
+          System.out.printf("Your change is $%.2f. Confirm transaction? (yes/no)\n", change);
+          String confirmation = scanner.next();
+  
+          if ("yes".equalsIgnoreCase(confirmation)) {
+              System.out.printf("Transaction successful. Enjoy your %s!\n", selectedSnack.getName());
+              if (change > 0) {
+                  System.out.printf("Don't forget your change: $%.2f\n", change);
+              }
+          } else {
+              System.out.println("Transaction cancelled. Please take your refund.");
+          }
+  
+          System.out.println("Thank you for using the Vending Machine. Have a great day!");
+      }
+  
     }
-}
